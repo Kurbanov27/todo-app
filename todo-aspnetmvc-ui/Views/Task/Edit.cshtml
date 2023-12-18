@@ -1,0 +1,67 @@
+﻿@using todo_domain_entities.Enums;
+@model todo_aspnetmvc_ui.Models.TodoItemWithAllLists
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <h1 style="text-align: center">Edit</h1>
+
+    <h4 style="text-align: center">Task</h4>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <div class="input-group date" id="datepicker">
+                        <input asp-for="DueDate" type="date" id="datePickerId" class="form-control" value="@Model.DueDate.ToString("yyyy-MM-dd")"/>
+                    </div>
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Todo list</label>
+
+                    <select asp-for="TodoListId" class="form-select" title="Select the todo list">
+                        @foreach (var todoList in Model.TaskLists)
+                        {
+                            <option value="@todoList.Id">@todoList.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+
+                    <select asp-for="Status" class="form-select" title="Default select example">
+                        <option value="@((int)TaskItemStatus.Completed)">Completed</option>
+                        <option value="@((int)TaskItemStatus.Active)">Active</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 30px">
+        <a href="/Home">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

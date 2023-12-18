@@ -1,0 +1,54 @@
+﻿@using todo_domain_entities.Enums;
+@model List<todo_domain_entities.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="all">
+    <div class="container">
+        <h1>Completed Tasks</h1>
+        @if (Model.Count() == 0)
+        {
+            <h5 style="text-align: center; margin-bottom: 20px;">No completed tasks</h5>
+        }
+        else
+        {
+            <ol class="list-group list-group-numbered">
+                @foreach (var item in Model)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="col-md-5">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold title">@item.Title</div>
+                                    @item.Description
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>
+                                    Due Date:
+                                    <span class="badge bg-primary rounded-pill">@item.DueDate.ToShortDateString()</span>
+                                </p>
+                                <p>Creation Date: @item.CreatedDate.ToShortDateString()</p>
+                            </div>
+                            <div class="col-md-2">
+                                @if (item.Status == TaskItemStatus.Completed)
+                                {
+                                    <p class="status">Completed <i class="fas fa-check"></i></p>
+                                }
+                                @if (item.Status == TaskItemStatus.Active)
+                                {
+                                    <p class="status">Active <i class="fas fa-clock"></i></p>
+                                }
+                            </div> <br>
+                            <a href="/Task/Edit/@item.Id">Edit</a>
+                        </li>
+                    }
+            </ol>
+        }
+        <p>
+            <a asp-action="Create" class="btn btn-primary" role="button"><i class="fas fa-plus"></i>Create New</a>
+        </p>
+        <a href="/Home" style="padding-bottom: 30px;">Back to List</a>
+    </div>
+</section>

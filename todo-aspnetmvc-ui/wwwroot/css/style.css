@@ -1,0 +1,237 @@
+﻿@import url("https://use.fontawesome.com/releases/v6.1.1/css/all.css");
+
+body {
+    font-family: 'Open Sans';
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+textarea {
+    margin-bottom: 20px;
+}
+
+
+header .navbar-brand {
+    font-size: 25px;
+    font-weight: 400;
+    color: black !important;
+    margin-right: 50px;
+}
+
+header .navbar-brand img {
+    width: 25%;
+    margin-bottom: 5px;
+}
+
+header .navbar-nav .nav-link {
+    color: black !important;
+    font-size: 18px;
+    margin-right: 30px;
+}
+
+header .navbar-nav .nav-link:hover {
+    color: gray !important;
+}
+
+.list {
+    margin-bottom: 30px;
+}
+
+.list .tab-content h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.list .tab-content h3 {
+    font-size: 23px;
+    text-align: center;
+    color: #808080;
+}
+
+.list .nav {
+    margin-top: 20px;
+}
+
+.list .nav .delete {
+    width: 10%;
+    padding-top: 15px;
+    height: fit-content;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.list .nav .nav-link {
+    font-size: 20px;
+    color: black;
+    margin-bottom: 25px;
+    text-align: left;
+    font-weight: 500;
+    width: 80%;
+    padding-right: 0px
+}
+
+.list .nav .hide {
+    padding-left: 0px;
+    padding-right: 0px;
+    border-bottom-width: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    border-top-width: 0px;
+    height: fit-content;
+    margin-top: 15px;
+    border: none;
+}
+
+.list .nav #newlist {
+    margin-left: 12px;
+    margin-bottom: 15px;
+}
+
+.list .nav .nav-link i {
+    margin-right: 15px;
+}
+
+.list .nav .nav-link span {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.list .list-group  .list-group-item {
+    padding-top: 20px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: solid 1px;
+    border-top: solid 1px;
+}
+
+.list .list-group  .list-group-item span {
+    font-size: 14px;
+}
+
+.list .list-group .btn {
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.list .list-group .fa-trash {
+    margin-left: 10px;
+}
+
+.list .calendar {
+    width: 20%;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.list .calendar p {
+    font-weight: 500;
+}
+
+.list .calendar:hover {
+    background: #0d6efd;
+}
+
+.list .calendar:hover p {
+    color: #ffffff;
+}
+
+.list .calendar .today {
+    color: #0d6efd;
+}
+
+.list-group-numbered > li::before {
+    font-size: 22px;
+}
+
+.list .fw-bold {
+    font-size: 22px;
+}
+
+.list .ms-2 {
+    font-size: 17px;
+}
+
+.btn-group .fa-check {
+    font-size: 15px !important;
+}
+ 
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: transparent !important;
+    color: #000;
+}
+
+.create #plus {
+    border-radius: 50%;
+    text-align: center;
+}
+
+.create .btn {
+    width: auto;
+}
+
+.create .btn .fas {
+    font-size: 25px;
+}
+
+.all h1 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.all table {
+    margin-bottom: 30px;
+} 
+
+.all p {
+    text-align: center;
+}
+
+.all li {
+    padding-top: 20px;
+}
+
+.all .list-group .title {
+    font-size: 22px;
+}
+
+.all .list-group .ms-2 {
+    font-size: 18px;
+}
+
+.all .list-group p {
+    text-align: left;
+}
+
+.all .list-group span {
+    font-size: 14px;
+}
+
+.all p i {
+    margin-right: 10px;
+}
+
+h2 {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    margin-bottom: 10px;
+}
+
+.form-group input {
+    margin-bottom:  15px;
+}
+
+.form-group select {
+    margin-bottom: 20px;
+}
+

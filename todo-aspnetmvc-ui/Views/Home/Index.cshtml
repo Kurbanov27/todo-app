@@ -1,0 +1,256 @@
+﻿@using todo_domain_entities.Enums;
+@model List<todo_domain_entities.Models.TaskList>
+@{
+    ViewData["Title"] = "My To Do list";
+}
+
+<section class="list">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="d-flex align-items-start">
+                <div class="col-md-3">
+                    <div class="nav nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        @foreach (var todoList in Model)
+                        {
+                            <button class="nav-link btn-outline-dark" id="v-pills-@todoList.Id-tab" data-bs-toggle="pill" data-bs-target="#v-pills-@todoList.Id" type="button" role="tab" aria-controls="v-pills-@todoList.Id" aria-selected="true">
+                                @if (todoList.Title.Length < 14)
+                                {
+                                    <i class="fa-solid fa-list"></i>
+                                }
+                                @todoList.Title<span class="badge bg-primary rounded-pill">@todoList.TodoItems.Count()</span>
+                            </button>
+                            <a class="btn delete" id="delete-list-@todoList.Id" role="button" href="/List/Delete/@todoList.Id"><i class="fas fa-trash"></i></a>
+                            <button class="btn btn-outline-dark hide" id="edit-list-@todoList.Id" onclick="editList(@todoList.Id);"><i class="fa-solid fa-pen-to-square"></i></button>
+                        }
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a class="btn btn-primary" id="newlist" href="/List/Create" role="button"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        @{
+                            var index = 0;
+                            foreach (var list in Model)
+                            {
+                                var showActive = index == 0 ? "show active" : string.Empty;
+                                index++;
+                                <div class="tab-pane fade @showActive" id="v-pills-@list.Id" role="tabpanel" aria-labelledby="v-pills-@list.Id-tab">
+                                    <h3>@DateTime.Now.ToString("MMM d, yyyy")</h3>
+                                    <h1>@list.Title</h1>
+                                    <div class="dates d-flex">
+                                        <div class="calendar">
+                                            <p class="today">@DateTime.Now.ToString("ddd")</p>
+                                            <p class="today">@DateTime.Now.ToString("dd")</p>
+                                        </div>
+                                        @for (int i = 1; i < 13; i++)
+                                        {
+                                            <div class="calendar">
+                                                <p>@DateTime.Now.AddDays(+i).ToString("ddd")</p>
+                                                <p>@DateTime.Now.AddDays(+i).ToString("dd")</p>
+                                            </div>
+                                        }
+                                    </div>
+                                    <ol class="list-group list-group-numbered">
+                                        @foreach (var item in list.TodoItems)
+                                        {
+                                            @if (item.Status == TaskItemStatus.Completed)
+                                            {
+                                                <li class="list-group-item completed d-flex justify-content-between align-items-start" id="item-@item.Id">
+                                                    <div class="col-md-6">
+                                                        <div class="ms-2 me-auto">
+                                                            @if (item.Status == TaskItemStatus.Completed)
+                                                            {
+                                                                <div class="fw-bold"><s>@item.Title</s></div>
+                                                                <s>@item.Description</s>
+                                                            }
+                                                            @if (item.Status != TaskItemStatus.Completed)
+                                                            {
+                                                                <div class="fw-bold title">@item.Title</div>
+                                                                @item.Description
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4" style="margin-left: 15px">
+                                                        <p>
+                                                            Due Date:
+                                                            <span class="badge bg-primary rounded-pill">@item.DueDate.ToShortDateString()</span>
+                                                        </p>
+                                                        <p>Creation Date: @item.CreatedDate.ToShortDateString()</p>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @if (item.Status == TaskItemStatus.Completed)
+                                                        {
+                                                            <p>Completed <i class="fas fa-check"></i></p>
+                                                        }
+                                                        @if (item.Status == TaskItemStatus.Active)
+                                                        {
+                                                            <p>Active <i class="fas fa-clock"></i></p>
+                                                        }
+                                                        <a class="btn btn-danger" onclick="done();" href="/Task/Delete/@item.Id">Delete<i class="fa-solid fa-trash"></i></a>
+                                                        <a class="btn btn-primary" onclick="toggleStatus(@item.Id);" href="#">Change Status</a>
+                                                    </div> <br>
+                                                    <a href="/Task/Edit/@item.Id"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                    <div class="col-md-6">
+                                                        <div class="ms-2 me-auto">
+                                                            @if (item.Status == TaskItemStatus.Completed)
+                                                            {
+                                                                <div class="fw-bold"><s>@item.Title</s></div>
+                                                                <s>@item.Description</s>
+                                                            }
+                                                            @if (item.Status != TaskItemStatus.Completed)
+                                                            {
+                                                                <div class="fw-bold title">@item.Title</div>
+                                                                @item.Description
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4" style="margin-left: 15px;">
+                                                        <p>
+                                                            Due Date:
+                                                            @if (item.DueDate.Date == DateTime.Now.Date)
+                                                            {
+                                                                <span class="badge bg-danger rounded-pill">@item.DueDate.ToShortDateString() <i class="fas fa-clock"></i></span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-primary rounded-pill">@item.DueDate.ToShortDateString()</span>
+                                                            }
+                                                        </p>
+                                                        <p>Creation Date: @item.CreatedDate.ToShortDateString()</p>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @if (item.Status == TaskItemStatus.Completed)
+                                                        {
+                                                            <p>Completed <i class="fas fa-check"></i></p>
+                                                        }
+                                                        @if (item.Status == TaskItemStatus.Active)
+                                                        {
+                                                            <p>Active <i class="fas fa-clock"></i></p>
+                                                        }
+                                                        <a class="btn btn-danger" onclick="done();" href="/Task/Delete/@item.Id">Delete<i class="fa-solid fa-trash"></i></a>
+                                                        <a class="btn btn-primary" onclick="toggleStatus(@item.Id);" href="#">Change Status</a>
+                                                    </div> <br>
+                                                    <a href="/Task/Edit/@item.Id"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                </li>
+                                            }
+
+                                        }
+                                    </ol>
+                                    <div class="row">
+                                        <div class="create">
+                                            <div class="row justify-content-between">
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-danger" onclick="deleteCompletedTasks();">Delete Completed Tasks</button>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <button type="button" onclick="window.location.href='/Task/Filter/Active';" class="btn btn-outline-primary">Show Active</button>
+                                                        <button type="button" onclick="window.location.href='/Task/Filter/Completed';" class="btn btn-outline-primary">Show Completed</button>
+                                                        <button type="button" onclick="window.location.href='/Task';" class="btn btn-outline-primary">Show All</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a class="btn btn-primary" id="plus" href="/Task/Create" role="button"><i class="fas fa-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function editList(id) {
+            window.location = '/List/Edit/' + id;
+        }
+
+        function hideItem() {
+
+            targList = document.getElementsByClassName("completed");
+            document.getElementsByClassName("completed")
+            if (targList) {
+                for (var x = 0; x < targList.length; x++) {
+                    targList[x].setAttribute('style', 'display: none !important');
+                }
+            }
+        }
+
+        function showItem() {
+            targList = document.getElementsByClassName("completed");
+            document.getElementsByClassName("completed")
+            if (targList) {
+                for (var x = 0; x < targList.length; x++) {
+                    targList[x].setAttribute('style', 'display: flex');
+                }
+            }
+        }
+
+        function hideList(id) {
+            targList = document.getElementById("v-pills-" + id + "-tab");
+            icon = document.getElementById("delete-list-" + id);
+            if (targList.style.visibility !== "hidden") {
+                targList.style.visibility = "hidden";
+                icon.style.visibility = "hidden";
+            } else {
+                targList.style.visibility = "visible";
+                icon.style.visibility = "visible";
+            }
+        }
+
+        function changeEye(id) {
+            $('#hide-' + id).find("i").toggleClass("fa-eye fa-eye-slash");
+        }
+
+        function deleteCompletedTasks() {
+            if (confirm("Are you sure you want to delete all completed tasks?")) {
+                var request = new XMLHttpRequest();
+                var url = "/Task/delete-completed";
+                request.open("POST", url, false);
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        alert("Success");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Something went wrong, please try again");
+                    }
+                }
+                request.send();
+            }
+        }
+
+        function toggleStatus(id) {
+            if (confirm("Are you sure you want to toggle the status of this task?")) {
+                var request = new XMLHttpRequest();
+                var url = "/Task/toggle/" + id;
+                request.open("POST", url, false);
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        alert("Success");
+                        window.location.reload();
+                    }
+                    else {
+                        console.log(request);
+                        alert("Something went wrong, please try again");
+                    }
+                }
+                request.send();
+            }
+        }
+    </script>
+}

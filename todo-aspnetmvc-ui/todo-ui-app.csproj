@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>todo_aspnetmvc_ui</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\lib\owl\**" />
+    <Content Remove="wwwroot\lib\owl\**" />
+    <EmbeddedResource Remove="wwwroot\lib\owl\**" />
+    <None Remove="wwwroot\lib\owl\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\todo-domain-entities\todo-domain-entities.csproj" />
+  </ItemGroup>
+
+</Project>
