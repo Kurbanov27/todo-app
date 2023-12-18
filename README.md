@@ -13,8 +13,8 @@ The solution consists of 2 projects:
 All the To Do List application data stored locally in the database using MS SQL local Database. 
 
 
-<img width="868" alt="Screenshot 2023-12-18 202923" src="![image](https://github.com/Kurbanov27/todo-app/assets/42763170/b8ac1bf9-a3ff-419b-91cc-2976b20ddc31)
-">
+![image](https://github.com/Kurbanov27/todo-app/assets/42763170/9868e27e-a190-4bc7-9942-fd0f874a7d1c)
+
 
 <h2>Dependency graph</h2>
 
