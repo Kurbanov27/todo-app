@@ -1,17 +1,16 @@
 <h1 align="center">To Do List application</h1>
 <h2>Goal</h2>
-The goal of the project is to create a To Do List web application that allows users to manage their personal activities by creating to do lists. In addition, this project was built to practice and memorize the material from online .NET Development training. </br>
+The goal of the project is to create a To Do List web application that allows users to manage their personal activities by creating to do lists. </br>
 <h2>Description</h2> 
 
 To Do List app was created by using ASP.NET Core MVC with Entity Framework and .NET Core 3.1 
 
-The solution consists of three VS projects:
+The solution consists of 2 projects:
 
 - A class library project which contains classes that represent the domain model for the To Do List application.
 - A client ASP.NET Core MVC application that end users can use to interact with the To Do List application.
-- A unit test project that provides unit tests for the Conrtollers.
 
-All the To Do List application data stored in the database. 
+All the To Do List application data stored locally in the database using MS SQL local Database. 
 
 
 <img width="868" alt="Screenshot 2022-07-10 202923" src="https://user-images.githubusercontent.com/42763170/178151445-9a9012e1-2f59-4307-9bc8-745990cadf26.png">
